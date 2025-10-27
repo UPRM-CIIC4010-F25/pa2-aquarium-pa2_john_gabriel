@@ -54,6 +54,14 @@ void ofApp::setup(){
     ));
 
     ofSetLogLevel(OF_LOG_NOTICE); // Set default log level
+
+    bool ok = bgMusic.load("sounds/reverie.wav");
+    ofLogNotice() << "Loaded? " << std::boolalpha << ok;
+    if(ok){
+        bgMusic.setLoop(true);
+        bgMusic.setVolume(0.6f);
+        bgMusic.play();
+    }
 }
 
 //--------------------------------------------------------------
@@ -74,7 +82,7 @@ void ofApp::update(){
 
     gameManager->UpdateActiveScene();
     
-
+    ofSoundUpdate();
 
 }
 
@@ -126,7 +134,7 @@ void ofApp::keyPressed(int key){
     if(gameManager->GetActiveSceneName() == GameSceneKindToString(GameSceneKind::GAME_INTRO)){
         switch (key)
         {
-        case OF_KEY_SPACE:
+        case ' ':
             gameManager->Transition(GameSceneKindToString(GameSceneKind::AQUARIUM_GAME));
             break;
         

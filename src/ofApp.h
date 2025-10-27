@@ -24,11 +24,11 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h) override;
 		void dragEvent(ofDragInfo dragInfo) override;
 		void gotMessage(ofMessage msg) override;
-	
 		
 		char moveDirection;
 		int DEFAULT_SPEED = 5;
 
+		ofSoundPlayer bgMusic;
 
 		AwaitFrames acuariumUpdate{5};
 
