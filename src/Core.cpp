@@ -13,6 +13,30 @@ void Creature::normalize() {
 
 void Creature::bounce() {
     // should implement boundary controls here
+    // Added by John to keep creatures within window bounds
+    float r = m_collisionRadius;    
+    float W = ofGetWidth();          
+    float H = ofGetHeight();         
+
+    if (m_x - r < 0) {               
+        m_x = r;                     
+        m_dx = fabs(m_dx);          
+        setFlipped(false);           
+    }
+    else if (m_x + r > W) {          
+        m_x = W - r;                 
+        m_dx = -fabs(m_dx);          
+        setFlipped(true);            
+    }
+
+    if (m_y - r < 0) {               
+        m_y = r;
+        m_dy = fabs(m_dy);           
+    }
+    else if (m_y + r > H) {          
+        m_y = H - r;
+        m_dy = -fabs(m_dy);          
+    }
 }
 
 
@@ -48,6 +72,13 @@ void GameEvent::print() const {
 
 // collision detection between two creatures
 bool checkCollision(std::shared_ptr<Creature> a, std::shared_ptr<Creature> b) {
+    //Added by John: simple circle-based collision detection
+    float dx = a->getX() - b->getX();
+    float dy = a->getY() - b->getY();
+    float distance = sqrt(dx * dx + dy * dy);
+    if (distance < (a->getCollisionRadius() + b->getCollisionRadius()))
+        return true;
+    else
     return false; 
 };
 
