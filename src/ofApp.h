@@ -29,7 +29,9 @@ class ofApp : public ofBaseApp{
 		int DEFAULT_SPEED = 5;
 
 		ofSoundPlayer bgMusic;
-
+		ofSoundPlayer eatSound;
+		ofSoundPlayer hurtSound;
+		
 		AwaitFrames acuariumUpdate{5};
 
 		ofTrueTypeFont gameOverTitle;

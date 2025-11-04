@@ -48,7 +48,9 @@ void PlayerCreature::update() {
 }
 //Added by John helper function to add life to player when power up eaten
 void PlayerCreature::gainLife(int amount, int maxLives) {
+    oneupSound.load("sounds/1up.wav"); 
     m_lives = std::min(maxLives, m_lives + amount);
+    oneupSound.play();
     ofLogNotice() << "Player gained a life! Lives: " << m_lives << std::endl;
 }
 
@@ -70,9 +72,16 @@ void PlayerCreature::changeSpeed(int speed) {
 }
 
 void PlayerCreature::loseLife(int debounce) {
+    hurtSound.load("sounds/hurt.wav"); 
     if (m_damage_debounce <= 0) {
         if (m_lives > 0) this->m_lives -= 1;
         m_damage_debounce = debounce; // Set debounce frames
+
+        if (hurtSound.isLoaded()) {
+        hurtSound.setSpeed(ofRandom(0.97f, 1.03f));
+        hurtSound.play();
+        }
+
         ofLogNotice() << "Player lost a life! Lives remaining: " << m_lives << std::endl;
     }
     // If in debounce period, do nothing
@@ -391,7 +400,6 @@ std::shared_ptr<GameEvent> DetectAquariumCollisions(std::shared_ptr<Aquarium> aq
 
 void AquariumGameScene::Update(){
     std::shared_ptr<GameEvent> event;
-
     this->m_player->update();
 
     if (this->updateControl.tick()) {
@@ -407,7 +415,7 @@ void AquariumGameScene::Update(){
 
                 if (ctype == AquariumCreatureType::Shrimp) {
                     this->m_aquarium->removeCreature(npcFish);
-                    this->m_player->gainLife(1, /*maxLives=*/5);
+                    this->m_player->gainLife(1, 5);
                     this->m_player->addToScore(1, 1);
                 }
 
@@ -494,6 +502,9 @@ std::vector<AquariumCreatureType> AquariumLevel::Repopulate() {
     std::vector<AquariumCreatureType> toRepopulate;
 
     for (auto &node : m_levelPopulation) {
+
+        
+
         while (node->currentPopulation < node->population) {
             toRepopulate.push_back(node->creatureType);
             node->currentPopulation++;
