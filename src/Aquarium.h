@@ -67,13 +67,20 @@ public:
     int getLives() const { return m_lives; }
     int getPower() const { return m_power; }
     
-    void addToScore(int amount, int weight=1) { m_score += amount * weight; }
+    void addToScore(int amount, int weight=1) {
+        eatSound.load("sounds/eat.wav");
+        eatSound.setPosition(0.35f);
+        eatSound.play();
+        m_score += amount * weight; }
     void loseLife(int debounce);
     void increasePower(int value) { m_power += value; }
     void reduceDamageDebounce();
 
     void gainLife(int amount = 1, int maxLives = 5); //Added by John: Helper Function for Shrimp power up
-    
+    ofSoundPlayer eatSound;
+	ofSoundPlayer hurtSound;
+    ofSoundPlayer oneupSound;
+
 private:
     int m_score = 0;
     int m_lives = 3;
@@ -175,6 +182,7 @@ std::shared_ptr<GameEvent> DetectAquariumCollisions(std::shared_ptr<Aquarium> aq
 
 class AquariumGameScene : public GameScene {
     public:
+
         AquariumGameScene(std::shared_ptr<PlayerCreature> player, std::shared_ptr<Aquarium> aquarium, string name)
         : m_player(std::move(player)) , m_aquarium(std::move(aquarium)), m_name(name){}
         std::shared_ptr<GameEvent> GetLastEvent(){return m_lastEvent;}
@@ -220,12 +228,10 @@ class Level_2 : public AquariumLevel  {
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::NPCreature, 30));
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::BiggerFish, 5));
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::SwordFish, 2));
-
-            int shrimpCount = (std::rand() % 5);
-            if (shrimpCount > 0) {
-                this->m_levelPopulation.push_back(
-                    std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Shrimp, shrimpCount));
-            }
+        //Added by John more power like spawn for shrimp
+    int shrimpCount = (std::rand() % 4);
+    this->m_levelPopulation.push_back(
+        std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Shrimp, shrimpCount));
 
         };
 
@@ -239,12 +245,6 @@ class Level_4 : public AquariumLevel  {
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::SwordFish, 2));
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Squid, 3));
 
-            int shrimpCount = (std::rand() % 5)+1;
-            if (shrimpCount > 0) {
-                this->m_levelPopulation.push_back(
-                    std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Shrimp, shrimpCount));
-            }
-
         };
 
 };
@@ -255,6 +255,10 @@ class Level_3 : public AquariumLevel  {
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::NPCreature, 30));
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::BiggerFish, 15));
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Squid, 4));
+                        // 35% chance 
+    int shrimpCount = (std::rand() % 4);
+    this->m_levelPopulation.push_back(
+        std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Shrimp, shrimpCount));
 
         };
 
