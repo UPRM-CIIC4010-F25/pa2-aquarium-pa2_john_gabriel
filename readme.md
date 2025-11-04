@@ -24,8 +24,8 @@ Grading
 ## Team Info
 | Student Number | Student Name | Student Email |
 |-|-|-|
-|(STUDENT NUMBER HERE)| (STUDENT NAME HERE)| (STUDENT EMAIL HERE) |
-|(STUDENT NUMBER HERE)| (STUDENT NAME HERE)| (STUDENT EMAIL HERE) |
+|(802229736)| (John A. Cartagena Perez)| (john.cartagena1@upr.edu) |
+|(802208686)| (Gabriel E. Fuentes Rosado)| (gabriel.fuentes8@upr.edu) |
 
 ---
 
