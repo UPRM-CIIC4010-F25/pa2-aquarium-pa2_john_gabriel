@@ -445,6 +445,10 @@ void AquariumGameScene::Draw() {
     this->m_aquarium->draw();
     this->paintAquariumHUD();
 
+    ofSetColor(255);
+    ofDrawBitmapString("Press M to mute", 10, 45);
+    ofDrawBitmapString("Press P to pause", 10, 65);
+    ofDrawBitmapString("Press SPACEBAR to unpause", 10, 85);
 }
 
 

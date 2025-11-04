@@ -123,6 +123,17 @@ void ofApp::keyPressed(int key){
                 gameScene->GetPlayer()->setDirection(1, gameScene->GetPlayer()->isYDirectionActive()?gameScene->GetPlayer()->getDy():0);
                 gameScene->GetPlayer()->setFlipped(false);
                 break;
+            case 'M':
+            case 'm':
+                if (bgMusic.isPlaying()) {
+                    bgMusic.setPaused(true);
+                } 
+                else bgMusic.setPaused(false);
+                break;
+            case 'P':
+            case 'p':
+                gameManager->Transition(GameSceneKindToString(GameSceneKind::GAME_INTRO));
+                break;
             default:
                 break;
         }
