@@ -39,7 +39,7 @@ class AquariumLevel : public GameLevel {
         bool isCompleted() override;
         void populationReset();
         void levelReset(){m_level_score=0;this->populationReset();}
-        virtual std::vector<AquariumCreatureType> Repopulate() = 0;
+        virtual std::vector<AquariumCreatureType> Repopulate();
     protected:
         std::vector<std::shared_ptr<AquariumLevelPopulationNode>> m_levelPopulation;
         int m_level_score;
@@ -203,7 +203,6 @@ class Level_0 : public AquariumLevel  {
 
 
         };
-        std::vector<AquariumCreatureType> Repopulate() override;
 
 };
 class Level_1 : public AquariumLevel  {
@@ -213,8 +212,6 @@ class Level_1 : public AquariumLevel  {
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::SwordFish, 5));
 
         };
-        std::vector<AquariumCreatureType> Repopulate() override;
-
 
 };
 class Level_2 : public AquariumLevel  {
@@ -231,7 +228,6 @@ class Level_2 : public AquariumLevel  {
             }
 
         };
-        std::vector<AquariumCreatureType> Repopulate() override;
 
 };
 
@@ -250,7 +246,6 @@ class Level_4 : public AquariumLevel  {
             }
 
         };
-        std::vector<AquariumCreatureType> Repopulate() override;
 
 };
 
@@ -262,7 +257,6 @@ class Level_3 : public AquariumLevel  {
             this->m_levelPopulation.push_back(std::make_shared<AquariumLevelPopulationNode>(AquariumCreatureType::Squid, 4));
 
         };
-        std::vector<AquariumCreatureType> Repopulate() override;
 
 };
 
